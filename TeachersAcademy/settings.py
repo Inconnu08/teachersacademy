@@ -143,3 +143,6 @@ AUTH_USER_MODEL = 'core.User'
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# You forgot to include this statement below, which is needed for JWT tokens.
+REST_USE_JWT = True
