@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -136,7 +136,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-#Change user model
+# Change user model
 AUTH_USER_MODEL = 'core.User'
 
 # Static files (CSS, JavaScript, Images)
@@ -144,5 +144,5 @@ AUTH_USER_MODEL = 'core.User'
 
 STATIC_URL = '/static/'
 
-# You forgot to include this statement below, which is needed for JWT tokens.
+# Needed for JWT tokens.
 REST_USE_JWT = True

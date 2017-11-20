@@ -18,12 +18,13 @@ from django.contrib import admin
 from rest_framework_jwt.views import obtain_jwt_token
 
 from task.urls import task_urlpatterns
-from core.urls import users_urlpatterns, auth_urlpatterns
+from core.urls import users_urlpatterns, auth_urlpatterns, user_profile_urlpatterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^tasks/', include(task_urlpatterns, namespace='tasks')),
     url(r'^users/', include(users_urlpatterns, namespace='users')),
+    url(r'^', include(user_profile_urlpatterns, namespace='profile')),
     url(r'^', include(auth_urlpatterns, namespace='auth')),
     url(r'^api-token-auth/', obtain_jwt_token),
 ]

@@ -1,8 +1,11 @@
-from django.contrib.auth import get_user_model
-from rest_framework import serializers
+from django.contrib.auth import get_user_model, logout
+from django.utils.translation import ugettext_lazy as _
+from rest_framework import serializers, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField, Serializer
+from rest_framework.views import APIView
 
 from task.models import Task
 
@@ -10,6 +13,12 @@ User = get_user_model()
 
 
 class LoginSerializer(Serializer):
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
     email = serializers.EmailField(required=False)
     phone = serializers.CharField(required=False)
     password = serializers.CharField(write_only=True, style={'input_type': 'password'})
@@ -82,4 +91,18 @@ class UserLiteSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ('get_full_name', 'email')
+
+
+class UserProfileSerializer(ModelSerializer):
+
+    class Meta:
+        model = User
+        exclude = ('password', )
+        read_only_fields = ('is_active',)
+
+
+class Logout(APIView):
+    def post(self, request):
+        logout(request)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 

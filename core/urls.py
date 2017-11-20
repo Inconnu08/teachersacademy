@@ -1,7 +1,7 @@
 from django.conf.urls import url
-from django.contrib import admin
 
-from core.views import UsersList, UserDetails, Registration, Login
+from core.serializers import Logout
+from core.views import UsersList, UserDetails, Registration, Login, UserProfile
 
 users_urlpatterns = [
     url(r'^$', UsersList.as_view(), name='list-users'),
@@ -10,6 +10,11 @@ users_urlpatterns = [
 ]
 
 auth_urlpatterns = [
-    url(r'^registration$', Registration.as_view(), name='registration'),
+    url(r'^register$', Registration.as_view(), name='register'),
     url(r'^login/$', Login.as_view(), name="login"),
+    url(r'^logout/$', Logout.as_view(), name="logout"),
+]
+
+user_profile_urlpatterns = [
+    url(r'^profile/$', UserProfile.as_view(), name='me-details'),
 ]
